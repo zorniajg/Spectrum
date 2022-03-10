@@ -1,0 +1,252 @@
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ * Creates a short color blindness test to determine if somebody should go to an
+ * optamologist for further testing.
+ * 
+ * @author Jacob Zorniak
+ * 
+ * @version 17 November, 2019: All basic functionality is there for 7 plates of
+ *          testing.
+ *
+ */
+public class ColorTests extends JPanel implements ActionListener
+{
+    private final int numberOfPlates = 7;
+    private int correctAnswered;
+    private int colorBlindAnswered;
+
+    private JButton correctAnswer;
+    private JButton colorBlindAnswer;
+    private JButton none;
+    private String[] correctAnswers = {"12", "8", "29", "5", "3", "15", "74"};
+    private String[] incorrectAnswers = {"21", "3", "70", "2", "5", "17", "21"};
+
+    private String currPlate;
+    private int plateCounter;
+    private BufferedImage plate;
+
+    private GridBagConstraints c;
+    private Font font;
+
+    /**
+     * Constructor method for ColorTests.
+     */
+    public ColorTests()
+    {
+        // Set layout and bounds.
+        this.setLayout(new CardLayout());
+        this.setBounds(0, 0, 900, 500);
+
+        // Create the introduction panel.
+        JPanel introPanel = new JPanel();
+        introPanel.setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
+        c.gridx = 5;
+        c.gridy = 5;
+        String instruct = "After clicking 'Begin Test', "
+                + "select the number you see within each plate. If you do not see any number select 'none'.";
+        JLabel instructions = new JLabel(instruct);
+        font = new Font("Verdana", Font.BOLD, 12);
+        instructions.setFont(font);
+        introPanel.add(instructions, c);
+        JButton beginButton = new JButton("Begin Test");
+        beginButton.setSize(100, 100);
+        beginButton.addActionListener(this);
+        c.gridy = 6;
+        introPanel.add(beginButton, c);
+        this.add(introPanel, "Introduction");
+
+        // Create panels for plates and answers.
+        JPanel[] plates = new JPanel[7];
+
+        for (int i = 0; i < plates.length; i++)
+        {
+            JPanel plate = new JPanel();
+            plate.setLayout(new GridBagLayout());
+            c.gridx = 5;
+            c.gridy = 5;
+            String fileName = "Plate" + (i + 1) + ".gif";
+            createPlateCard(correctAnswers[i], incorrectAnswers[i], fileName, plate);
+            this.add(plate, "Plate " + (i + 1));
+        }
+
+        this.setVisible(true);
+    }
+
+    /**
+     * Creates a plate panel by taking in the correct and incorrect answers as
+     * well as the imagine file name and the panel to which all these elements
+     * will be added.
+     * 
+     * @param correct The correct answer
+     * @param incorrect The incorrect answer
+     * @param fileName The file name for the plate image
+     * @param platePanel The panel to add the elements to
+     */
+    public void createPlateCard(String correct, String incorrect, String fileName,
+            JPanel platePanel)
+    {
+        try
+        {
+            // Read in plate picture
+            plate = ImageIO.read(new File(fileName));
+            ImageIcon icon = new ImageIcon(plate);
+            JLabel showPlate = new JLabel();
+            showPlate.setIcon(icon);
+            platePanel.add(showPlate);
+
+            // Create buttons for answers
+            correctAnswer = new JButton(correct);
+            correctAnswer.addActionListener(this);
+            platePanel.add(correctAnswer);
+            colorBlindAnswer = new JButton(incorrect);
+            colorBlindAnswer.addActionListener(this);
+            platePanel.add(colorBlindAnswer);
+            none = new JButton("none");
+            none.addActionListener(this);
+            platePanel.add(none);
+
+            // Add buttons to panel
+            platePanel.add(correctAnswer);
+            platePanel.add(colorBlindAnswer);
+            platePanel.add(none);
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Creates the conclusion panel using the statistics gathered through the
+     * answers selected.
+     */
+    public void createConclusionPanel()
+    {
+        JPanel conclusionPanel = new JPanel();
+        conclusionPanel.setLayout(new GridBagLayout());
+        c.gridx = 5;
+        c.gridy = 5;
+        JLabel conclusionTitle = new JLabel("Conclusion:");
+        font = new Font("Verdana", Font.BOLD, 24);
+        conclusionTitle.setFont(font);
+        conclusionPanel.add(conclusionTitle, c);
+        c.gridy = 6;
+        JLabel conclusionCorrect = new JLabel("Correct: " + correctAnswered);
+        font = new Font("Verdana", Font.PLAIN, 12);
+        conclusionCorrect.setFont(font);
+        conclusionPanel.add(conclusionCorrect, c);
+        c.gridy = 7;
+        JLabel conclusionIncorrect = new JLabel("Incorrect: " + colorBlindAnswered);
+        font = new Font("Verdana", Font.PLAIN, 12);
+        conclusionIncorrect.setFont(font);
+        conclusionPanel.add(conclusionIncorrect, c);
+        c.gridy = 8;
+        String conclusion;
+        if (colorBlindAnswered > 0)
+            conclusion = "You have answered at least 1 plate incorrectly: you should see a specialist for further testing";
+        else
+            conclusion = "You have answered all plates correctly: You are not colorblind";
+        JLabel verdict = new JLabel(conclusion);
+        font = new Font("Verdana", Font.PLAIN, 12);
+        verdict.setFont(font);
+        conclusionPanel.add(verdict, c);
+        this.add(conclusionPanel, "Conclusion");
+    }
+
+    /**
+     * Main method for testing.
+     * 
+     * @param args The arguments
+     */
+    public static void main(String[] args)
+    {
+        JFrame test = new JFrame("Color Tests");
+        ColorTests tests = new ColorTests();
+        test.add(tests);
+
+        test.setSize(tests.getSize());
+        test.setVisible(true);
+    }
+
+    /**
+     * Method for controlling button presses.
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        String buttonPressed = e.getActionCommand();
+        CardLayout cards = (CardLayout) this.getLayout();
+        boolean found = false;
+
+        currPlate = "Plate " + plateCounter;
+        // If begin test is clicked in the introduction panel.
+        if (buttonPressed.equalsIgnoreCase("Begin Test"))
+        {
+            plateCounter = 1;
+            currPlate = "Plate " + plateCounter;
+            cards.show(this, currPlate);
+            plateCounter++;
+        }
+        // If the "none" button is selected as an answer.
+        if (buttonPressed.equalsIgnoreCase("none"))
+        {
+            colorBlindAnswered++;
+            cards.show(this, currPlate);
+            plateCounter++;
+            found = true;
+        }
+        // If the correct answer button is selected.
+        for (String answer : correctAnswers)
+        {
+            if (buttonPressed.equalsIgnoreCase(answer))
+            {
+                correctAnswered++;
+                cards.show(this, currPlate);
+                plateCounter++;
+                found = true;
+            }
+        }
+        // If selected answer is not found within the correct answers- incorrect
+        // answer selected.
+        if (!found)
+        {
+            for (String answer : incorrectAnswers)
+            {
+                if (buttonPressed.equalsIgnoreCase(answer))
+                {
+                    colorBlindAnswered++;
+                    cards.show(this, currPlate);
+                    plateCounter++;
+                    found = true;
+                }
+            }
+        }
+        // If all plates have been answered, create and show conclusion
+        if (plateCounter >= numberOfPlates)
+        {
+            createConclusionPanel();
+            cards.show(this, "Conclusion");
+        }
+    }
+}

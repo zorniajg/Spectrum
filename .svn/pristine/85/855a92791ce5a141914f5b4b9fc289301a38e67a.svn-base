@@ -1,0 +1,114 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
+/**
+ * Provides a given part of the Munsell color space. A quick google search shows
+ * that all colors go from 0-10 to account for black to white so that seems like
+ * a good starting point. This should be adaptable for all colors implemented in
+ * the future.
+ * 
+ * @author Kelly Ortega
+ * 
+ * @version 28 October, 2019: Implemented black-to-white column, as well as 11
+ * expandable rows.
+ * @version 4 November, 2019: did some FAT refactoring and fixed the last button
+ * filling the panel
+ *
+ */
+public class ColorPanel extends JPanel
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private ArrayList<ArrayList<MunsellColorModel>> colorList;
+
+	private JLabel colorInfo;
+	
+	private MunsellColorModel currColor;
+
+	/**
+	 * will later take a parameter to set up a certain space maybe
+	 * 
+	 * @throws IOException in case it can't read a file
+	 */
+	public ColorPanel() throws IOException
+	{
+		// ill refactor this later i swear
+		// update: REFACTORED IT
+		// initialize to 5.0R
+		colorList = new ArrayList<ArrayList<MunsellColorModel>>();
+		ColorBuilder builder = new ColorBuilder(colorList, 5, "R");
+
+		JPanel center = new JPanel();
+		center.setLayout(null);
+		this.setLayout(new BorderLayout());
+		this.setBounds(0, 0, 1000, 1000);
+		for (int i = 0; i < colorList.size(); i++)
+		{ // i = vertical, traverses value
+			for (int j = 0; j < colorList.get(i).size(); j++)
+			{ // j = horizontal, traverses chroma
+				JButton colorSquare = new JButton(); // it's a button for selecting purposes
+				colorSquare.setBounds(60 * j, 60 * i, 60, 60); // x pos, y pos, width, height
+				int[] rgb = Utilities.MunsellToRGB(colorList.get(i).get(j),
+						Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+				Color color = new Color(rgb[0], rgb[1], rgb[2]); // make the color
+				colorSquare.setBackground(color); // set the color
+				colorSquare.setOpaque(true);
+				colorSquare.setBorderPainted(false);
+				colorSquare.setBorder(new LineBorder(Color.BLUE, 5));
+				colorOptions(colorSquare, colorList.get(i).get(j));
+
+				JPanel north = new JPanel();
+
+				colorInfo = new JLabel("Color: ");
+				north.add(colorInfo); // sets up the color label
+				center.add(colorSquare); // this should fix the last button
+				this.add(north, BorderLayout.NORTH);// finally, put them in
+				this.add(center, BorderLayout.CENTER);
+			}
+		}
+		this.setVisible(true);
+	}
+
+	private void colorOptions(JButton button, MunsellColorModel color)
+	{
+		button.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				colorInfo.setText("Color: " + color.toString());
+				currColor = color;
+			}
+		});
+	}
+
+	public MunsellColorModel getCurrentColor()
+	{
+	    return currColor;
+	}
+
+	
+
+	/**
+	 * main for testing purposes
+	 * 
+	 * @param args commandline args
+	 * @throws IOException in case a file cant be read
+	 */
+	public static void main(String[] args) throws IOException
+	{
+		new ColorPanel();
+	}
+}

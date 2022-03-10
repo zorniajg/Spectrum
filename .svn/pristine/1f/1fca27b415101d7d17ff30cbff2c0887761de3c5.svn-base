@@ -1,0 +1,113 @@
+import java.awt.Color;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ * Provides a given part of the Munsell color space.
+ * A quick google search shows that all colors go from 0-10 to account for black to white so
+ * that seems like a good starting point. This should be adaptable for all colors implemented in
+ * the future.
+ * 
+ * @author Kelly Ortega
+ * 
+ * @version 28 October, 2019: Implemented black-to-white column, as well as 11 expandable rows.
+ *
+ */
+public class ColorPanel extends JFrame
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<MunsellColorModel> valueZero;
+	private ArrayList<MunsellColorModel> valueOne;
+	private ArrayList<MunsellColorModel> valueTwo;
+	private ArrayList<MunsellColorModel> valueThree;
+	private ArrayList<MunsellColorModel> valueFour;
+	private ArrayList<MunsellColorModel> valueFive;
+	private ArrayList<MunsellColorModel> valueSix;
+	private ArrayList<MunsellColorModel> valueSeven;
+	private ArrayList<MunsellColorModel> valueEight;
+	private ArrayList<MunsellColorModel> valueNine;
+	private ArrayList<MunsellColorModel> valueTen;
+	private ArrayList<ArrayList<MunsellColorModel>> colorList;
+	
+	/**
+	 * will later take a parameter to set up a certain space maybe
+	 * @throws IOException in case it can't read a file
+	 */
+	public ColorPanel() throws IOException {
+		//ill refactor this later i swear
+		valueZero = new ArrayList<MunsellColorModel>();
+		valueOne = new ArrayList<MunsellColorModel>();
+		valueTwo = new ArrayList<MunsellColorModel>();
+		valueThree = new ArrayList<MunsellColorModel>();
+		valueFour = new ArrayList<MunsellColorModel>();
+		valueFive = new ArrayList<MunsellColorModel>();
+		valueSix = new ArrayList<MunsellColorModel>();
+		valueSeven = new ArrayList<MunsellColorModel>();
+		valueEight = new ArrayList<MunsellColorModel>();
+		valueNine = new ArrayList<MunsellColorModel>();
+		valueTen = new ArrayList<MunsellColorModel>();
+		colorList = new ArrayList<ArrayList<MunsellColorModel>>();
+		
+		valueZero.add(new MunsellColorModel("RP", 10.0, 0, 0));
+		valueOne.add(new MunsellColorModel("RP", 10.0, 1, 0));
+		valueTwo.add(new MunsellColorModel("RP", 10.0, 2, 0));
+		valueThree.add(new MunsellColorModel("RP", 10.0, 3, 0));
+		valueFour.add(new MunsellColorModel("RP", 10.0, 4, 0));
+		valueFive.add(new MunsellColorModel("RP", 10.0, 5, 0));
+		valueSix.add(new MunsellColorModel("RP", 10.0, 6, 0));
+		valueSeven.add(new MunsellColorModel("RP", 10.0, 7, 0));
+		valueEight.add(new MunsellColorModel("RP", 10.0, 8, 0));
+		valueNine.add(new MunsellColorModel("RP", 10.0, 9, 0));
+		valueTen.add(new MunsellColorModel("RP", 10.0, 10, 0));
+		colorList.add(valueZero);
+		colorList.add(valueOne);	
+		colorList.add(valueTwo);	
+		colorList.add(valueThree);	
+		colorList.add(valueFour);	
+		colorList.add(valueFive);	
+		colorList.add(valueSix);	
+		colorList.add(valueSeven);	
+		colorList.add(valueEight);	
+		colorList.add(valueNine);	
+		colorList.add(valueTen);	
+		
+		//null layout is tentative, will fix when i can get ahold of more people
+		this.setLayout(null);
+		this.setBounds(0, 0, 600, 400);
+		for (int i = 0; i < colorList.size(); i++) { //i = vertical, traverses value
+			for (int j = 0; j < colorList.get(i).size(); j++) { //j = horizontal, traverses chroma
+				JButton colorSquare = new JButton(); //it's a button for selecting purposes
+				colorSquare.setBounds(30 * j, 30 * i, 30, 30); //x pos, y pos, width, height
+				int[] rgb = Utilities.MunsellToRGB(colorList.get(i).get(j), Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+				Color color = new Color(rgb[0], rgb[1], rgb[2]); //make the color
+				colorSquare.setBackground(color); //set the color
+				
+				JLabel label = new JLabel(colorList.get(i).get(j).toString()); //makes the label
+				label.setBounds(30 * j, 30 * i + 30, 30, 5); //put it underneath, as agreed on
+				
+				this.add(colorSquare); //finally, put them in
+				this.add(label);
+			}
+		}
+		this.setVisible(true);
+	}
+	
+	/**
+	 * main for testing purposes
+	 * @param args commandline args
+	 * @throws IOException in case a file cant be read
+	 */
+	public static void main(String[] args) throws IOException {
+		new ColorPanel();
+	}
+}

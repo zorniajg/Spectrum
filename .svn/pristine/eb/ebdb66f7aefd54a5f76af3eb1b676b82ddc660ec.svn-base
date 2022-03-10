@@ -1,0 +1,156 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+
+public class HarmoniousConversionUtilities
+{
+	/*
+	 * Hashmap used for converting munsell to hue. It contains the string (ex. "R")
+	 * and hue (ex 2.5)
+	 */
+	public static HashMap<String, Integer> numbers = new HashMap<String, Integer>();
+
+	public static HashMap<Double, String> hue = new HashMap<Double, String>();
+
+	/*
+	 * Main class for testing. Will also help you understand how these methods are
+	 * used
+	 */
+	public static void main(String args[])
+	{
+		/* Initialize the color purple with hue 5 */
+		MunsellColorModel color = new MunsellColorModel("R", 5, 1, 2);
+		/* print complementary color of color */
+		System.out.print("Complementary color of " + color.getHueString() + " is "
+				+ complementaryConversion(color).getHueString() + "\n");
+		/* Print the 2 analogous colors of a color */
+		System.out.print(
+				"Analogous colors of " + color.getHueString() + " are " + analogousColors(color).get(0).getHueString()
+						+ " and " + analogousColors(color).get(1).getHueString() +"\n");
+		/*Print the 2 triad colors*/
+		System.out.print("Given "+color.getHueString()+", the other 2 colors in the triad are "+triadColors(color).get(0).getHueString()+" and "+triadColors(color).get(1).getHueString());
+	}
+
+	public static MunsellColorModel complementaryConversion(MunsellColorModel color)
+	{
+		populateNumbers();
+		populateHue();
+		MunsellColorModel result = new MunsellColorModel(color.getHueString(), color.getHueDouble(), color.getValue(),
+				color.getChroma());
+		double hue = munsellObjectToHueValue(result);
+		hue = (hue + 50) % 100;
+		return hueValueToMunsellObject(hue, result);
+
+	}
+
+	/* Returns an array of analogous colors */
+	public static ArrayList<MunsellColorModel> analogousColors(MunsellColorModel color)
+	{
+		ArrayList<MunsellColorModel> result = new ArrayList<MunsellColorModel>();
+		MunsellColorModel model = new MunsellColorModel(color.getHueString(), color.getHueDouble(), color.getValue(),
+				color.getChroma());
+		double hue = munsellObjectToHueValue(model);
+		double hue1 = hue - 10;
+		double hue2 = hue + 10;
+		if (hue1 < 0)
+			hue1 += 100;
+		if (hue2 > 100)
+			hue2 -= 100;
+		MunsellColorModel firstAnalogous = hueValueToMunsellObject(hue1, model);
+		MunsellColorModel secondAnalogous = hueValueToMunsellObject(hue2, model);
+		result.add(firstAnalogous);
+		result.add(secondAnalogous);
+		return result;
+	}
+
+	/* Returns an array of triad colors */
+	public static ArrayList<MunsellColorModel> triadColors(MunsellColorModel color)
+	{
+		ArrayList<MunsellColorModel> result = new ArrayList<MunsellColorModel>();
+		MunsellColorModel model = new MunsellColorModel(color.getHueString(), color.getHueDouble(), color.getValue(),
+				color.getChroma());
+		
+		double curHue = munsellObjectToHueValue(color);
+		double newHue1 = (curHue + 30) % 100;
+		double newHue2 = (curHue + 60) % 100;
+		
+		MunsellColorModel triad1 = hueValueToMunsellObject(newHue1, model);
+		MunsellColorModel triad2 = hueValueToMunsellObject(newHue2, model);
+				
+		result.add(triad1);
+		result.add(triad2);
+		return result;
+	}
+
+	public static void populateNumbers()
+	{
+		numbers.put("R", 5);
+		numbers.put("YR", 15);
+		numbers.put("Y", 25);
+		numbers.put("GY", 35);
+		numbers.put("G", 45);
+		numbers.put("BG", 55);
+		numbers.put("B", 65);
+		numbers.put("PB", 75);
+		numbers.put("P", 85);
+		numbers.put("RP", 95);
+
+	}
+
+	public static void populateHue()
+	{
+		hue.put(5.0, "R");
+		hue.put(15.0, "YR");
+		hue.put(25.0, "Y");
+		hue.put(35.0, "GY");
+		hue.put(45.0, "G");
+		hue.put(55.0, "BG");
+		hue.put(65.0, "B");
+		hue.put(75.0, "PB");
+		hue.put(85.0, "P");
+		hue.put(95.0, "RP");
+
+	}
+
+	public static double munsellObjectToHueValue(MunsellColorModel color)
+	{
+
+		double result = 0;
+		result = numbers.get(color.getHueString());
+		if (color.getHueDouble() == 2.5)
+		{
+			result -= 2.5;
+		} else if (color.getHueDouble() == 7.5)
+		{
+			result += 2.5;
+		} else if (color.getHueDouble() == 10)
+		{
+			result += 5;
+		}
+		return result;
+	}
+
+	public static MunsellColorModel hueValueToMunsellObject(double hueValue, MunsellColorModel color)
+	{
+		MunsellColorModel result = new MunsellColorModel("R", 0, color.getValue(), color.getChroma());
+		if (hueValue % 10 == 5)
+		{
+			result.setHueString(hue.get(hueValue));
+			result.setHueDouble(5);
+		} else if (hueValue % 10 == 0)
+		{
+			result.setHueString(hue.get(hueValue - 5));
+			result.setHueDouble(10);
+		} else if (hueValue % 10 == 2.5)
+		{
+			result.setHueString(hue.get(hueValue + 2.5));
+			result.setHueDouble(2.5);
+		} else if (hueValue % 10 == 7.5)
+		{
+			result.setHueString(hue.get(hueValue - 2.5));
+			result.setHueDouble(7.5);
+		}
+		return result;
+	}
+
+}

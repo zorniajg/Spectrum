@@ -1,0 +1,251 @@
+import java.awt.AWTException;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+/**
+ * @author Mateo Price-Aguirre
+ *
+ */
+public class PixelSelect extends JPanel
+{
+
+	private static final long serialVersionUID = 1L;
+	private int mouseX, mouseY; //mouse position when clicked
+	private Color color; //current color clicked
+	private JLabel colorInfo; //info on current color
+	private MunsellColorModel mColor; //current color (Munsell)
+	private JFileChooser fileChooser;
+	private ImageIcon icon; //current icon
+	private JLabel jlbl;
+	
+	public PixelSelect() throws IOException{
+	
+		//setup
+		this.setLayout(new BorderLayout());
+		this.setBounds(0, 0, 1000, 1000);
+		
+		jlbl = new JLabel();
+		ImageIcon icon = new ImageIcon("blueTestPixelSelect.jpg");
+		setIcon(icon);
+		jlbl.setHorizontalAlignment(JLabel.CENTER);
+		jlbl.setVerticalAlignment(JLabel.CENTER);
+		this.add(jlbl);
+		
+		JButton openFile=new JButton("Open File");  
+		this.add(openFile, BorderLayout.SOUTH);
+		openFile.setPreferredSize(new Dimension(40,40));
+		
+		this.setVisible(true);
+		this.addMouseListener(new myListener());
+		
+		colorInfo = new JLabel("Color: ");
+		this.add(colorInfo, JLabel.NORTH); // sets up the color label
+		colorInfo.setVerticalAlignment(JLabel.NORTH);
+		colorInfo.setHorizontalAlignment(JLabel.CENTER);
+		
+		
+		fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		openFile.addActionListener(new MyActionListener());	
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "Images", "jpg", "jpeg", "png");
+		fileChooser.setFileFilter(filter);
+
+	}
+	
+	public void setIcon(ImageIcon i) {
+		//resizes
+		while(i.getIconHeight()>600 || i.getIconWidth()>600) {
+			Image image = i.getImage(); 
+			Image newImage = image.getScaledInstance(i.getIconHeight()/2, 
+					i.getIconWidth()/2,  java.awt.Image.SCALE_SMOOTH);   
+			i = new ImageIcon(newImage);  
+		}
+		icon = i;
+		jlbl.setIcon(i);
+
+
+	}
+	
+	//lets user open the file chooser by clicking on button
+	public void myButtonAction() throws IOException {
+		if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    icon = new ImageIcon(ImageIO.read( selectedFile ) );
+		    setIcon(icon);		    
+		}
+
+		
+	}
+	//Opens new window containing current color
+	public void openNewWindow()
+	{
+		JFrame showCurrent = new JFrame("Current Color");
+		showCurrent.setBounds(0, 0, 300, 300);
+        JPanel panel = new JPanel();
+        panel.setBackground(color);
+        showCurrent.add(panel);
+        showCurrent.setVisible(true);
+
+	}
+
+	//sets the color info
+	public void setColorInfo() {
+		colorInfo.setText("Color: " + mColor.toString());
+		this.setBackground(color);
+		openNewWindow();
+	}
+	
+	public void setMColor(MunsellColorModel m) {
+		mColor = m;
+	}
+	
+	public void setMouseX(int x) {
+		mouseX = x;
+	}
+	
+	public void setMouseY(int y) {
+		mouseY = y;
+	}
+	
+	public int getMouseX() {
+		return mouseX;
+	}
+	
+	public int getMouseY() {
+		return mouseY;
+	}
+	
+	//gets the color of the last clicked pixel
+	public void getPixelColorRGB(int x, int y) throws AWTException {
+		Robot rb=new Robot();
+	    setColor(rb.getPixelColor(x,y));
+	}
+	
+	public void setColor(Color pixelColor)
+	{
+		color = pixelColor;
+		
+		
+	}
+
+	//gets the munsell color equivalent of the last clicked pixel color
+	public void getMunsellFromPixel() throws IOException {
+		setMColor(new MunsellColorModel(Utilities.RGBToMunsell(color.getRed(), 
+				color.getGreen(), color.getBlue(), Utilities.openMunsell2RGB("RGB2Munsell.csv"))));
+	}
+
+	
+	
+	
+	/**
+	 * main for testing purposes
+	 * @param args commandline args
+	 * @throws IOException in case a file cant be read
+	 */
+	public static void main(String[] args) throws IOException {
+		new PixelSelect();
+	}
+	
+	
+	private class MyActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			try
+			{
+				myButtonAction();
+			} catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	}
+	
+	private class myListener implements MouseListener{
+
+        /**
+         *does this when mouse is pressed
+         */
+        @Override 
+        public void mousePressed(MouseEvent e) {
+        	setMouseX(e.getX());
+        	setMouseY(e.getY());
+        	try
+			{
+				getPixelColorRGB(e.getX(),e.getY());
+			} catch (AWTException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	try
+			{
+				getMunsellFromPixel();
+			} catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	if(mColor!=null) {
+        		setColorInfo();
+        	}
+        	
+        }
+
+		@Override
+		public void mouseClicked(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+
+	}
+}
+
+	
+
+

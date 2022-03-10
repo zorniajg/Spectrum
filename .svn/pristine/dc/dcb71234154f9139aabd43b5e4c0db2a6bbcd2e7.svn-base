@@ -1,0 +1,67 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Utilities class
+ * 
+ *
+ */
+public class Utilities
+{
+
+	/**
+	 * @param m - Munsell color to convert to RGB
+	 * @param data derived from the MunselltoRGB csv file
+	 * @return an Array containing the R G B values
+	 */
+	public static int[] MunsellToRGB(MunsellColorModel m, List<String[]> data){
+		
+		//r,g,b, values, remain at -1 if the color is not found
+		int r = -1;
+		int g = -1;
+		int b = -1;
+		
+		//represents whether the RGB color has been found
+		boolean done = false;
+		
+		//searches the data for the munsell color
+		//when it is found, sets the corresponding r g b values
+		for(String[] d: data) {
+			if(!done) {
+				if(d[2].equals(m.getHueString()) && 
+						Double.parseDouble(d[3]) == (m.getHueDouble()) &&
+						Integer.parseInt(d[4]) == (m.getValue()) &&
+						Integer.parseInt(d[5]) == (m.getChroma())) {
+					
+					r = Integer.parseInt(d[6]);
+					g = Integer.parseInt(d[7]);
+					b = Integer.parseInt(d[8]);
+					done = true;
+				}
+			}
+		}
+		
+				
+		int[] rgb = {r,g,b};
+		return rgb;
+	}
+	
+	
+	public static List<String[]> openMunsell2RGB() throws IOException {	
+		
+		List<String[]> allData = new ArrayList<String[]>();
+		String line = "";
+		BufferedReader csvReader = new BufferedReader(new FileReader("Munsell2RGB.csv"));
+		while ((line = csvReader.readLine()) != null) {
+		    String[] data = line.split(",");
+		    allData.add(data);
+		}
+		csvReader.close();
+		return allData;
+		
+	}
+	
+}

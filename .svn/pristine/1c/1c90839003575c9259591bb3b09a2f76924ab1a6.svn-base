@@ -1,0 +1,137 @@
+/*MunsellColorModel
+ * Created October 23rd 2019
+ * This class has basic functionality for the MunsellColorModel.
+ * 
+ * 
+*/
+
+public class MunsellColorModel 
+{
+	
+	private String hueString; //**String portion of the hue
+	private double hueDouble; //**Number portion of the hue
+	private double value; //**Value: lightness/darkness of the color
+	private double chroma; //**Chroma: purity of the color
+	
+	/**
+	 * Default constructor.
+	 * @param hueString
+	 * @param hueDouble
+	 * @param value
+	 * @param chroma
+	 */
+	public MunsellColorModel(String hueString, double hueDouble, double value, double chroma) {
+		setHueString(hueString);
+		setHueDouble(hueDouble);
+		setValue(value);
+		setChroma(chroma);
+		
+	}
+	
+	
+	/**
+	 * 0-argument constructor.
+	 * For testing purposes and placeholders.
+	 */
+	public MunsellColorModel() {
+		setHueString("R");
+		setHueDouble(5);
+		setValue(5);
+		setChroma(5);
+	}
+	
+	/**
+	 * Copy constructor.
+	 * @param other - other MunsellColorModel to copy.
+	 */
+	public MunsellColorModel(MunsellColorModel other) {
+		setHueString(other.hueString);
+		setHueDouble(other.hueDouble);
+		setValue(other.value);
+		setChroma(other.chroma);
+	}
+
+	/**
+	 * @return the hueString
+	 */
+	public String getHueString()
+	{
+		return hueString;
+	}
+
+	/**
+	 * @param hueString the hueString to set
+	 */
+	public void setHueString(String hueString)
+	{
+		this.hueString = hueString;
+	}
+
+	/**
+	 * @return the hueDouble
+	 */
+	public double getHueDouble()
+	{
+		return hueDouble;
+	}
+
+	/**
+	 * @param hueDouble the hueDouble to set
+	 */
+	public void setHueDouble(double hueDouble)
+	{
+		this.hueDouble = hueDouble;
+	}
+
+	/**
+	 * @return the value
+	 */
+	public double getValue()
+	{
+		return value;
+	}
+
+	/**
+	 * @param value2 the value to set
+	 */
+	public void setValue(double value2)
+	{
+		this.value = value2;
+	}
+
+	/**
+	 * @return the chroma
+	 */
+	public double getChroma()
+	{
+		return chroma;
+	}
+
+	/**
+	 * @param chroma2 the chroma to set
+	 */
+	public void setChroma(double chroma2)
+	{
+		this.chroma = chroma2;
+	}
+	
+	/**
+	 * Prints out the Munsell color in the standard format.
+	 * 
+	 * for non-neutral colors: hue, then letter representation, then value over chroma
+	 * EX. 5.0R 5/12
+	 * 
+	 * for neutral colors: letter representation, then value followed by a slash.
+	 * EX. N 3/
+	 */
+	@Override
+	public String toString() {
+		if (!this.getHueString().equals("N")) {
+			return hueDouble + hueString + " " + value + "/" + chroma;
+		}
+		return hueString + " " + value + "/";
+	}
+	
+	
+
+}

@@ -1,0 +1,66 @@
+import java.awt.BorderLayout;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
+/**
+ * The main program GUI.
+ * (attempted to) Rename for clarity. (but it didn't like it
+ * 										when i tried to commit
+ * 										with the new name).
+ * @author Kelly Ortega, Alex Tran, Ben Girardi, 
+ * 		   Jacob Zorniak, Mateo Price-Aguirre
+ * 
+ * @version 28 October, 2019: created to display the Spectrum features.
+ *
+ */
+public class GUI extends JFrame
+{	   	
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * initializes the program.
+	 * @param args commandline args.
+	 * @throws IOException in case it can't read a file.
+	 * @throws MalformedURLException  in case it can't read the URL.
+	 */
+	public static void main (String args[]) throws MalformedURLException, IOException
+	{
+		JFrame frame = new JFrame("Spectrum");
+		frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JTabbedPane tabbedPane = new JTabbedPane();
+		ColorPanel p1 = new ColorPanel();
+		
+		tabbedPane.addTab("Color Panel", p1);
+		
+		JPanel south = new JPanel();
+       
+        JButton complementary = new JButton("Complementary Colors");
+        JButton analogous = new JButton("Analogous Colors");
+        JButton triad = new JButton("Triad Colors");
+        JButton square = new JButton("Square Colors");
+        
+        south.add(complementary);
+        south.add(analogous);
+        south.add(triad);
+        south.add(square);
+		
+        frame.add(south, BorderLayout.SOUTH);
+		//For future tabs
+		//JComponent p2 = null;
+		//tabbedPane.addTab("test", p2);
+		
+		frame.add(tabbedPane);
+		frame.setSize(1000, 800);
+		frame.setVisible(true);
+		
+	}
+}
+

@@ -1,0 +1,95 @@
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+/**
+ * The 3D representation of the Munsell color space.
+ * 
+ * @author Jacob Zorniak
+ * @version 18 November, 2019: Created to represent the Munsell color space in 3D.
+ *
+ */
+public class MunsellThreeDimensionalModel
+{
+
+    /**
+     * Initialized the 3D elements and displays them.
+     */
+    private static void initAndShowGUI()
+    {
+        // This method is invoked on the EDT thread
+        JFrame frame = new JFrame( "Swing and JavaFX" );
+        final JFXPanel fxPanel = new JFXPanel();
+        frame.add( fxPanel );
+        frame.setSize( 300, 200 );
+        frame.setVisible( true );
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
+        Platform.runLater( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                initFX( fxPanel );
+            }
+        } );
+    }
+
+    /**
+     * Initializes the JFXPanel.
+     * 
+     * @param fxPanel
+     *            the JFXPanel to initialize.
+     */
+    private static void initFX( JFXPanel fxPanel )
+    {
+        // This method is invoked on the JavaFX thread
+        Scene scene = createScene();
+        fxPanel.setScene( scene );
+    }
+
+    /**
+     * Creates the scene.
+     * 
+     * @return the scene reated.
+     */
+    private static Scene createScene()
+    {
+        Group root = new Group();
+        Scene scene = new Scene( root, Color.ALICEBLUE );
+        Text text = new Text();
+
+        text.setX( 40 );
+        text.setY( 100 );
+        text.setFont( new Font( 25 ) );
+        text.setText( "Welcome JavaFX!" );
+
+        root.getChildren().add( text );
+
+        return ( scene );
+    }
+
+    /**
+     * Main for testing purposes, probably
+     * 
+     * @param args
+     *            command line args
+     */
+    public static void main( String[] args )
+    {
+        SwingUtilities.invokeLater( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                initAndShowGUI();
+            }
+        } );
+    }
+}

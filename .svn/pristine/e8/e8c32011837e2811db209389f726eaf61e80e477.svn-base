@@ -1,0 +1,51 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class HarmoniousConversionUtilitiesTest
+{
+	
+    @Test
+    public void testComplementary()
+    {
+    	MunsellColorModel color = new MunsellColorModel("R", 5.0, 5.0, 12.0);
+    	String result = "5.0BG 5.0/12.0";
+    	assertEquals(result, HarmoniousConversionUtilities.complementaryConversion(color).toString());
+    }
+    
+    @Test
+    public void testAna()
+    {
+    	MunsellColorModel color = new MunsellColorModel("R", 5.0, 6.0, 10.0);
+    	String result = "5.0RP 6.0/10.0";
+    	String result1 = "5.0YR 6.0/10.0";
+    	assertEquals(result, HarmoniousConversionUtilities.analogousColors(color).get(0).toString());
+    	assertEquals(result, HarmoniousConversionUtilities.analogousColors(color).get(0).toString());
+    }
+    
+    @Test
+    public void testTriad()
+    {
+    	MunsellColorModel color = new MunsellColorModel("R", 5.0, 6.0, 10.0);
+    	String result = "5.0GY 6.0/10.0";
+    	String result1 = "5.0B 6.0/10.0";
+    	assertEquals(result, HarmoniousConversionUtilities.triadColors(color).get(0).toString());
+    	assertEquals(result, HarmoniousConversionUtilities.triadColors(color).get(0).toString());
+    }
+    
+    @Test
+    public void testSquare()
+    {
+    	MunsellColorModel color = new MunsellColorModel("R", 5.0, 6.0, 10.0);
+    	String result = "10.0Y 6.0/10.0";
+    	assertEquals(result, HarmoniousConversionUtilities.squareColors(color).get(0).toString());
+    }
+    
+    @Test
+    public void testTetrad()
+    {
+    	MunsellColorModel color = new MunsellColorModel("R", 5.0, 6.0, 10.0);
+    	String result = "5.0R 6.0/10.0";
+    	assertEquals(result, HarmoniousConversionUtilities.tetradColors(color).get(0).toString());
+    }
+}

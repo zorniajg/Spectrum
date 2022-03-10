@@ -1,0 +1,144 @@
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Robot;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+/**
+ * @author Mateo Price-Aguirre
+ *
+ */
+public class PixelSelect extends JFrame
+{
+
+	private static final long serialVersionUID = 1L;
+	private int mouseX, mouseY; //mouse position when clicked
+	private Color color; //current color clicked
+	
+	public PixelSelect() throws IOException {
+		
+	
+		//setup
+		this.setLayout(new FlowLayout());
+		this.setBounds(0, 0, 600, 400);
+		JLabel lbl = new JLabel();
+		ImageIcon icon = new ImageIcon("testPixelSelectRed.jpg");
+		lbl.setIcon(icon);
+		this.add(lbl);
+		this.setVisible(true);
+		this.addMouseListener(new myListener());
+
+	}
+	
+	public void setMouseX(int x) {
+		mouseX = x;
+	}
+	
+	public void setMouseY(int y) {
+		mouseY = y;
+	}
+	
+	public int getMouseX() {
+		return mouseX;
+	}
+	
+	public int getMouseY() {
+		return mouseY;
+	}
+	
+	//gets the color of the last clicked pixel
+	public void getPixelColorRGB(int x, int y) throws AWTException {
+		Robot rb=new Robot();
+	    setColor(rb.getPixelColor(x,y));
+	}
+	
+	public void setColor(Color pixelColor)
+	{
+		color = pixelColor;
+		
+	}
+
+	//gets the munsell color equivalent of the last clicked pixel color
+	public MunsellColorModel getMunsellFromPixel() throws IOException {
+		return new MunsellColorModel(Utilities.RGBToMunsell(color.getRed(), 
+				color.getGreen(), color.getBlue(), Utilities.openMunsell2RGB("RGB2Munsell.csv")));
+	}
+
+	
+	
+	
+	/**
+	 * main for testing purposes
+	 * @param args commandline args
+	 * @throws IOException in case a file cant be read
+	 */
+	public static void main(String[] args) throws IOException {
+		new PixelSelect();
+	}
+	
+	
+	private class myListener implements MouseListener{
+
+        /**
+         *does this when mouse is pressed
+         */
+        @Override 
+        public void mousePressed(MouseEvent e) {
+        	setMouseX(e.getX());
+        	setMouseY(e.getY());
+        	System.out.println(getMouseX()+","+getMouseY());
+        	try
+			{
+				getPixelColorRGB(e.getX(),e.getY());
+			} catch (AWTException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	try
+			{
+				System.out.println(getMunsellFromPixel().toString());
+			} catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
+
+		@Override
+		public void mouseClicked(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+    }
+
+	
+
+}

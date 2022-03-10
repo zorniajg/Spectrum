@@ -1,0 +1,47 @@
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ * The panel for settings.
+ * 
+ * @author Kelly Ortega
+ * @version 6 December, 2019:created.
+ *
+ */
+public class SettingsPanel extends JPanel
+{
+
+    private static final long serialVersionUID = 1L;
+    private JComboBox<String> colleges;
+    private JButton confirmChange;
+    private JLabel instructions;
+    
+    public SettingsPanel() {
+        initialize();
+        
+        this.setLayout(null);
+        this.setBounds( 0,  0,  500, 500 );
+        this.add( colleges );
+        this.add( instructions );
+        this.add( confirmChange );
+        this.setVisible( true );
+    }
+    
+    private void initialize() {
+        confirmChange = new JButton("Apply");
+        confirmChange.setBounds( 175, 300, 100, 25 );
+        
+        instructions = new JLabel("Set Color Scheme");
+        instructions.setBounds( 175, 75, 300, 30 );
+        
+        String[] collegeNames = {"Default","JMU", "VCU", "UVA", "VT", "CNU"};
+        colleges = new JComboBox<String>(collegeNames);
+        colleges.setBounds( 175, 125, 100, 50 );
+    }
+    public static void main(String[] args) {
+        new SettingsPanel();
+    }
+}

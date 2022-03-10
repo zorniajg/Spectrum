@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class HarmoniousConversionUtilities
+{
+	public MunsellColorModel complementaryConversion(MunsellColorModel color)
+	{
+		MunsellColorModel result = new MunsellColorModel(color.getHueString(), color.getHueDouble(), color.getValue(), color.getChroma());
+		double hue = (result.getHueDouble() + 50) % 100;
+		result.setHueDouble(hue);
+		return result;
+	}
+	
+	public ArrayList<MunsellColorModel> analogousColors(MunsellColorModel color)
+	{
+		ArrayList<MunsellColorModel> result = new ArrayList<MunsellColorModel>();
+		
+		
+		return result;
+	}
+	
+	
+}

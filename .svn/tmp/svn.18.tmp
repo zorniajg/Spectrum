@@ -1,0 +1,442 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+
+/**
+ * The main program GUI. (attempted to) Rename for clarity. (but it didn't like
+ * it when i tried to commit with the new name).
+ * 
+ * @author Kelly Ortega, Alex Tran, Ben Girardi, Jacob Zorniak, Mateo
+ *         Price-Aguirre
+ * 
+ * @version 28 October, 2019: created to display the Spectrum features.
+ *
+ */
+public class GUI extends JFrame
+{
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * initializes the program.
+     * 
+     * @param args commandline args.
+     * @throws IOException in case it can't read a file.
+     * @throws MalformedURLException in case it can't read the URL.
+     */
+    public static void main(String args[]) throws MalformedURLException, IOException
+    {
+        JFrame frame = new JFrame("Spectrum");
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JTabbedPane tabbedPane = new JTabbedPane();
+        
+        ColorPanel panel = new ColorPanel(5, "R");
+        PixelSelect p2 = new PixelSelect();
+        
+        JPanel south = new JPanel();
+
+        JButton complementary = new JButton("Complementary Colors");
+        complementary.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JFrame showComplementary = new JFrame("Complementary Color");
+                showComplementary.setBounds(0, 0, 300, 300);
+                JPanel compPanel = new JPanel();
+                int[] rgb;
+                try
+                {
+                    rgb = Utilities.MunsellToRGB(
+                            HarmoniousConversionUtilities
+                                    .complementaryConversion(panel.getCurrentColor()),
+                            Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+                    
+                    if(rgb[0] > 255)
+                    {
+                        rgb[0] = 255;
+                    }
+                    
+                    if( rgb[1] > 255)
+                    {
+                        rgb[1] = 255;
+                    }
+                    
+                    if(rgb[2] > 255 )
+                    {
+                        rgb[2] = 255;
+                    }
+                    
+                    if(rgb[0] < 0)
+                    {
+                        rgb[0] = 0;
+                    }
+                    
+                    if( rgb[1] < 0)
+                    {
+                        rgb[1] = 0;
+                    }
+                    
+                    if(rgb[2] < 0 )
+                    {
+                        rgb[2] = 0;
+                    }
+                    Color compColor = new Color(rgb[0], rgb[1], rgb[2]);
+                    compPanel.setBackground(compColor);
+                    JLabel compColorInfo = new JLabel(HarmoniousConversionUtilities
+                            .complementaryConversion(panel.getCurrentColor()).toString());
+                    compPanel.add(compColorInfo);
+                    showComplementary.add(compPanel);
+                    showComplementary.setVisible(true);
+                }
+                catch (IOException e1)
+                {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        JButton analogous = new JButton("Analogous Colors");
+        analogous.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JFrame showAnalogous = new JFrame("Analogous Colors");
+                showAnalogous.setLayout(new GridBagLayout());
+                showAnalogous.setBounds(0, 0, 400, 300);
+                int[] rgb;
+                for (MunsellColorModel color : HarmoniousConversionUtilities
+				        .analogousColors(panel.getCurrentColor()))
+				{
+				    try
+                    {
+                        rgb = Utilities.MunsellToRGB(color,
+                                Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+                        
+                        if(rgb[0] > 255)
+                        {
+                            rgb[0] = 255;
+                        }
+                        
+                        if( rgb[1] > 255)
+                        {
+                            rgb[1] = 255;
+                        }
+                        
+                        if(rgb[2] > 255 )
+                        {
+                            rgb[2] = 255;
+                        }
+                        
+                        if(rgb[0] < 0)
+                        {
+                            rgb[0] = 0;
+                        }
+                        
+                        if( rgb[1] < 0)
+                        {
+                            rgb[1] = 0;
+                        }
+                        
+                        if(rgb[2] < 0 )
+                        {
+                            rgb[2] = 0;
+                        }
+
+                        Color analogousColor = new Color(rgb[0], rgb[1], rgb[2]);
+                        JPanel analogousPanel = new JPanel();
+                        analogousPanel.setBackground(analogousColor);
+                        JLabel compColorInfo = new JLabel(color.toString());
+                        analogousPanel.add(compColorInfo);
+                        showAnalogous.add(analogousPanel);
+                    }
+                    catch (IOException e1)
+                    {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+				}
+				showAnalogous.setVisible(true);
+            }
+        });
+        
+        JButton triad = new JButton("Triad Colors");
+        triad.addActionListener(new ActionListener()
+        		{
+        	public void actionPerformed(ActionEvent e)
+            {
+                JFrame showTriad = new JFrame("Triad Colors");
+                showTriad.setLayout(new GridBagLayout());
+                showTriad.setBounds(0, 0, 500, 300);
+                int[] rgb;
+                for (MunsellColorModel color : HarmoniousConversionUtilities
+				        .triadColors(panel.getCurrentColor()))
+				{
+				    try
+                    {
+                        rgb = Utilities.MunsellToRGB(color,
+                                Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+                        
+                        if(rgb[0] > 255)
+                        {
+                            rgb[0] = 255;
+                        }
+                        
+                        if( rgb[1] > 255)
+                        {
+                            rgb[1] = 255;
+                        }
+                        
+                        if(rgb[2] > 255 )
+                        {
+                            rgb[2] = 255;
+                        }
+                        
+                        if(rgb[0] < 0)
+                        {
+                            rgb[0] = 0;
+                        }
+                        
+                        if( rgb[1] < 0)
+                        {
+                            rgb[1] = 0;
+                        }
+                        
+                        if(rgb[2] < 0 )
+                        {
+                            rgb[2] = 0;
+                        }
+                        Color triadColor = new Color(rgb[0], rgb[1], rgb[2]);
+                        JPanel triadPanel = new JPanel();
+                        
+                        JLabel triadColorInfo = new JLabel(HarmoniousConversionUtilities
+                                .triadColors(panel.getCurrentColor()).toString());
+                        
+                        triadPanel.setBackground(triadColor);
+                        //JLabel triadColorInfo = new JLabel(color.toString());
+                        triadPanel.add(triadColorInfo);
+                        showTriad.add(triadPanel);
+                    }
+                    catch (IOException e1)
+                    {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+				}
+				showTriad.setVisible(true);
+            }
+        });
+        	
+        		
+
+        JButton square = new JButton("Square Colors");
+        square.addActionListener(new ActionListener()
+		{
+        	public void actionPerformed(ActionEvent e)
+        	{
+		        JFrame showSquare = new JFrame("Square Colors");
+		        showSquare.setLayout(new GridBagLayout());
+		        showSquare.setBounds(0, 0, 700, 300);
+		        int[] rgb;
+		        for (MunsellColorModel color : HarmoniousConversionUtilities
+				        .squareColors(panel.getCurrentColor()))
+				{
+				    try
+                    {
+                        rgb = Utilities.MunsellToRGB(color,
+                                Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+                        
+                        if(rgb[0] > 255)
+                        {
+                            rgb[0] = 255;
+                        }
+                        
+                        if( rgb[1] > 255)
+                        {
+                            rgb[1] = 255;
+                        }
+                        
+                        if(rgb[2] > 255 )
+                        {
+                            rgb[2] = 255;
+                        }
+                        
+                        if(rgb[0] < 0)
+                        {
+                            rgb[0] = 0;
+                        }
+                        
+                        if( rgb[1] < 0)
+                        {
+                            rgb[1] = 0;
+                        }
+                        
+                        if(rgb[2] < 0 )
+                        {
+                            rgb[2] = 0;
+                        }
+                        Color squareColor = new Color(rgb[0], rgb[1], rgb[2]);
+                        JPanel squarePanel = new JPanel();
+                        
+                        JLabel triadColorInfo = new JLabel(HarmoniousConversionUtilities
+                                .triadColors(panel.getCurrentColor()).toString());
+                        
+                        squarePanel.setBackground(squareColor);
+                        //JLabel triadColorInfo = new JLabel(color.toString());
+                        squarePanel.add(triadColorInfo);
+                        showSquare.add(squarePanel);
+                    }
+                    catch (IOException e1)
+                    {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+				}
+		        showSquare.setVisible(true);
+		    }
+});
+        
+        JButton tetrad = new JButton("Tetrad Colors");
+        tetrad.addActionListener(new ActionListener()
+		{
+        	public void actionPerformed(ActionEvent e)
+        	{
+		        JFrame showSquare= new JFrame("Tetrad Colors");
+		        showSquare.setLayout(new GridBagLayout());
+		        showSquare.setBounds(0, 0, 850, 300);
+		        int[] rgb;
+		        for (MunsellColorModel color : HarmoniousConversionUtilities
+				        .tetradColors(panel.getCurrentColor()))
+				{
+				    try
+                    {
+                        rgb = Utilities.MunsellToRGB(color,
+                                Utilities.openMunsell2RGB("Munsell2RGB.csv"));
+                        
+                        if(rgb[0] > 255)
+                        {
+                            rgb[0] = 255;
+                        }
+                        
+                        if( rgb[1] > 255)
+                        {
+                            rgb[1] = 255;
+                        }
+                        
+                        if(rgb[2] > 255 )
+                        {
+                            rgb[2] = 255;
+                        }
+                        
+                        if(rgb[0] < 0)
+                        {
+                            rgb[0] = 0;
+                        }
+                        
+                        if( rgb[1] < 0)
+                        {
+                            rgb[1] = 0;
+                        }
+                        
+                        if(rgb[2] < 0 )
+                        {
+                            rgb[2] = 0;
+                        }
+
+                        Color tetradColor = new Color(rgb[0], rgb[1], rgb[2]);
+                        JPanel tetradPanel = new JPanel();
+                        
+                        JLabel triadColorInfo = new JLabel(HarmoniousConversionUtilities
+                                .triadColors(panel.getCurrentColor()).toString());
+                        
+                        tetradPanel.setBackground(tetradColor);
+                        //JLabel triadColorInfo = new JLabel(color.toString());
+                        tetradPanel.add(triadColorInfo);
+                        showSquare.add(tetradPanel);
+                    }
+                    catch (IOException e1)
+                    {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+				}
+		        showSquare.setVisible(true);
+		    }
+});
+        
+        //the JList for panel changing
+        DefaultListModel<String> colors = new DefaultListModel<String>();
+        String[] colorNames = {"2.5 R", "2.5 YR","2.5 Y","2.5 GY", "2.5 G",
+        		"2.5 BG","2.5 B","2.5 PB","2.5 P","2.5 RP",
+        		"5.0 R","5.0 YR","5.0 Y","5.0 GY","5.0 G",
+        		"5.0 BG","5.0 B","5.0 PB","5.0 P","5.0 RP", 
+        		"7.5 R","7.5 YR","7.5 Y","7.5 GY","7.5 G",
+        		"7.5 BG","7.5 B","7.5 PB","7.5 P","7.5 RP",
+        		"10.0 R", "10.0 YR", "10.0 Y", "10.0 GY", "10.0 G",
+        		"10.0 BG","10.0 B","10.0 PB","10.0 P","10.0 RP"};
+        
+        for (String s : colorNames) {
+        	colors.addElement(s);
+        }
+        
+        JList<String> colorSelector = new JList<String>(colors);
+        colorSelector.setLayoutOrientation(HEIGHT);
+        colorSelector.setVisibleRowCount(4);
+        colorSelector.setSelectedIndex(10);
+        colorSelector.addListSelectionListener(new ListSelectionListener()
+        {
+        	public void valueChanged(ListSelectionEvent e)
+        	{
+        		String[] values = colorSelector.getSelectedValue().split(" ");
+        		
+
+        		try
+        		{
+        			//panel = new ColorPanel(Double.parseDouble(values[0]), values[1]);
+        			System.out.println(colorSelector.getSelectedValue());
+        		} catch (NumberFormatException e1)
+        		{
+        			System.out.println(colorSelector.getSelectedValue());
+        			e1.printStackTrace();
+        		} 
+        	}
+        });
+        //JButton 
+
+        south.add(complementary);
+        south.add(analogous);
+        south.add(triad);
+        south.add(square);
+        south.add(tetrad);
+        south.add(colorSelector);
+        
+      
+        frame.add(south, BorderLayout.SOUTH);
+        // For future tabs
+        // JComponent p2 = null;
+        // tabbedPane.addTab("test", p2);
+
+        frame.add(tabbedPane);
+        tabbedPane.addTab("ColorPanel", panel);
+        tabbedPane.addTab("PixelSelector",  p2);
+        frame.setSize(1280, 850);
+        frame.setVisible(true);
+
+    }
+}

@@ -1,0 +1,21 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+
+class UtilitiesTest
+{
+    MunsellColorModel color1 = new MunsellColorModel("R", 2.5, 1, 2);
+    
+    @Test
+    void testKownCSVColorMunsellToRGB() throws IOException
+    {
+        int []rgb = Utilities.MunsellToRGB(color1, Utilities.openMunsell2RGB());
+        int [] expected = {45, 21, 31};
+        Assert.assertArrayEquals(expected, rgb);
+        
+    }
+
+}

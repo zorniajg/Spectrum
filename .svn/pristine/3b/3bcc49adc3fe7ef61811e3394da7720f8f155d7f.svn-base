@@ -1,0 +1,1441 @@
+import java.util.ArrayList;
+
+/**
+ * The methods that populate the arraylists of Munsell
+ * Colors to display.
+ * 
+ * 
+ * 
+ * im sorry
+ * 
+ * @author Kelly Ortega
+ * @version 4 November, 2019: created because ColorPanel was getting too long
+ * 			11 November, 2019: combined all methods into one to make calls easier.
+ */
+
+/**
+ * default constructor.
+ */
+public class ColorBuilder
+{
+	private ArrayList<ArrayList<MunsellColorModel>> list;
+
+	/**
+	 * with any luck, this constructor will let us change which part of the
+	 * color space is being viewed.
+	 * @param list the list to populate
+	 * @param hueDouble the double value of the hue
+	 * @param hue the string value of the hue
+	 */
+	public ColorBuilder(ArrayList<ArrayList<MunsellColorModel>> list, double hueDouble, String hue)
+	{
+		this.list = list;
+		initializeColorSpace();
+		buildSpace(hueDouble, hue);
+	}
+	
+	/**
+	 * default constructor, will initialize to 5.0R
+	 * @param list the list to populate
+	 */
+	public ColorBuilder(ArrayList<ArrayList<MunsellColorModel>> list)
+	{
+		this.list = list;
+		initializeColorSpace();
+		buildSpace(5, "R");
+	}
+
+	/**
+	 * amalgamated all the methods into one to make future calls easier
+	 * @param hueDouble the double value of the hue
+	 * @param hue the string value of the hue
+	 */
+	private void buildSpace(double hueDouble, String hue)
+	{
+		initializeColorSpace();
+		switch (hue)
+		{
+		// red
+		case ("R"):
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			}
+			break;
+
+		// yellow-red
+		case ("YR"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+		// Yellow
+		case ("Y"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+
+		// green-yellow
+		case ("GY"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+
+		// green
+		case ("G"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+
+		// blue-green
+		case ("BG"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+
+		// blues
+		case ("B"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2));
+				list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 4));
+
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2));
+				list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 4));
+
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+		// blue-purple
+		case ("PB"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2));
+				list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 4));
+
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2));
+				list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 4));
+
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 10; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 12; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 13; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 10; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 11; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 13; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+
+		// purple
+		case ("P"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 11; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 13; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2));
+				list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 4));
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 10; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+
+				for (int i = 1; i <= 13; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 11; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 12; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 10; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 11; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 12; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			}
+			break;
+		}
+
+		// red-purple
+		case ("RP"):
+		{
+			switch (Double.toString(hueDouble))
+			{
+			case ("2.5"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 10; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 11; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("5.0"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 11; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("7.5"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 6; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 10; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			case ("10.0"):
+				for (int i = 1; i <= 3; i++)
+				{
+					list.get(1).add(new MunsellColorModel(hue, hueDouble, 9, 2 * i));
+					list.get(9).add(new MunsellColorModel(hue, hueDouble, 1, 2 * i));
+				}
+
+				for (int i = 1; i <= 4; i++)
+				{
+					list.get(8).add(new MunsellColorModel(hue, hueDouble, 2, 2 * i));
+				}
+
+				for (int i = 1; i <= 5; i++)
+				{
+					list.get(2).add(new MunsellColorModel(hue, hueDouble, 8, 2 * i));
+					list.get(7).add(new MunsellColorModel(hue, hueDouble, 3, 2 * i));
+				}
+
+				for (int i = 1; i <= 7; i++)
+				{
+					list.get(6).add(new MunsellColorModel(hue, hueDouble, 4, 2 * i));
+				}
+
+				for (int i = 1; i <= 8; i++)
+				{
+					list.get(3).add(new MunsellColorModel(hue, hueDouble, 7, 2 * i));
+					list.get(5).add(new MunsellColorModel(hue, hueDouble, 5, 2 * i));
+				}
+
+				for (int i = 1; i <= 9; i++)
+				{
+					list.get(4).add(new MunsellColorModel(hue, hueDouble, 6, 2 * i));
+				}
+				break;
+			}
+		break;
+		}
+		}
+	}
+
+	/**
+	 * sets up all the array lists, and adds in all the neutrals
+	 */
+	private ArrayList<ArrayList<MunsellColorModel>> initializeColorSpace()
+	{
+		list.clear();
+
+		for (int i = 0; i < 11; i++)
+		{
+			list.add(new ArrayList<MunsellColorModel>());
+			list.get(i).add(new MunsellColorModel("RP", 10.0, 10 - i, 0));
+		}
+		return list;
+	}
+}

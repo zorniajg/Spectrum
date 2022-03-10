@@ -1,0 +1,32 @@
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
+public class GUI extends javax.swing.JFrame 
+{	   	
+	public static void main (String args[])
+	{
+		JFrame frame = new JFrame ();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JTabbedPane tabbedPane = new JTabbedPane();
+		JComponent p1 = null;
+		
+		tabbedPane.addTab("n0-n10", p1);
+		
+		//For future tabs
+		//JComponent p2 = null;
+		//tabbedPane.addTab("n0-n10", p2);
+		
+		
+		frame.add(tabbedPane);
+		frame.setSize(600, 600);
+		frame.setVisible(true);
+		
+		
+	}
+
+}
